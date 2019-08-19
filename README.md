@@ -1,2 +1,3 @@
-# probalinkage
-Probabilistic record linkage between a query and a target table
+# Probabilistic record linkage
+
+This repository is largely based on the `recordlinkage` package.
