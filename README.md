@@ -1,6 +1,8 @@
 # Easy record linkage
 
-This small python library is a drop-in replacement for the [recordlinkage](https://github.com/J535D165/recordlinkage/) toolkit. Please read the [documentation](https://recordlinkage.readthedocs.io/en/latest/) of this .
+This python library is a drop-in replacement for the [recordlinkage](https://github.com/J535D165/recordlinkage/) toolkit. Please read the [Record Linkage Toolkit documentation](https://recordlinkage.readthedocs.io/en/latest/) for a complete and up-to-date guidance.
+
+Here, we simply extend the `recordlinkage` library with a few functionalities to make it easy to use for medical records data.
 
 ## Main features
 
@@ -22,11 +24,13 @@ import pandas as pd
 ### Read the data
 
 ```python
-df_a = pd.read_csv(FIRST_DATAFRAME)
-df_b = pd.read_csv(SECOND_DATAFRAME)
+df_a = pd.read_csv(YOUR_FIRST_DATASET)
+df_b = pd.read_csv(YOUR_SECOND_DATASET)
 ```
 
 ### Preprocess
+
+Data [preprocessing](https://recordlinkage.readthedocs.io/en/latest/ref-preprocessing.html) is an important step. The better the processing, the more accurate the linkage will be. For example, you would like to clean:
 
 ```python
 from easylinkage.preprocessing import clean
@@ -35,13 +39,15 @@ df_a["firstname"] = clean(df_a["firstname"])
 
 ### Index
 
-Usually, comparing all datasets against all is computationally intractable. We can partition the pairwise data, for example, in `k = 5` blocks, using fuzzy similarities of first names and surnames.
+Comparing all records against all may be computationally intractable, and it is advisable to reduce the search space. For instance, we can partition the pairwise matrix in `k = 5` blocks using fuzzy similarities between names.
 
 ```python
 indexer = easylinkage.Index()
 indexer.softblock(left_on = ['firstname', 'surname'], right_on = ['firstname', 'surname'], k = 5)
 pairs = indexer.index(df_a, df_b)
 ```
+
+The higher the number of partitions, the less pairs will be considered. For large datasets, other [indexing techniques](https://recordlinkage.readthedocs.io/en/latest/ref-index.html) such as `sortedneighborhood` can be used.
 
 ### Compare
 
@@ -72,14 +78,16 @@ from easylinkage.postprocessing import merge
 df_ab = merge(probabilities, df_a["firstname", "surname", "birthdate"], df_b["firstname", "surname", "birthdate"])
 ```
 
-## TO-DO
+## Work in progress
+
+The **Easy linkage** library is currently being tested and we do recommend to use 
 
 * Add more default comparisons, such as between identifiers.
 * Test scalability.
 
 ## Need help?
 
-Please contact [](miquelduranfrigola@gmail.com) for questions regarding the **Easy linkage** library.
+Please contact <miquelduranfrigola@gmail.com> for questions regarding the **Easy linkage** library.
 
 
 
