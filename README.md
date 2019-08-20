@@ -9,7 +9,7 @@ This small python library is a drop-in replacement for the [recordlinkage](https
 * Automated complex comparisons, based on multiple types of similarities.
 * Smart binarization of the data to make it compatible with the classical ECM algorithm.
 * Ensemble-based version of the ECM algorithm to reduce the impact of correlated variables.
-* Merged dataframe to visualize results.
+* A merged method to postprocess the results.
 * All functionalities of the `recordlinkage` package!
 
 ## Basic linking example
@@ -22,15 +22,15 @@ import pandas as pd
 ### Read the data
 
 ```python
-df_a = pd.read_esv
-df_b = pd.read_csv
+df_a = pd.read_csv(FIRST_DATAFRAME)
+df_b = pd.read_csv(SECOND_DATAFRAME)
 ```
 
 ### Preprocess
 
 ```python
-df_a
-df_b
+from easylinkage.preprocessing import clean
+df_a["firstname"] = clean(df_a["firstname"])
 ```
 
 ### Index
@@ -44,6 +44,8 @@ pairs = indexer.index(df_a, df_b)
 ```
 
 ### Compare
+
+This is the most important part of the 
 
 ```python
 comp = easylinkage.Compare()
@@ -66,10 +68,18 @@ probabilities = ecm.prob(comparison_vectors)
 ### Merge
 
 ```python
-df_ab = easylinkage.merge(probabilities, df_a["firstname", "surname", "birthdate"], df_b["firstname", "surname", "birthdate"])
+from easylinkage.postprocessing import merge
+df_ab = merge(probabilities, df_a["firstname", "surname", "birthdate"], df_b["firstname", "surname", "birthdate"])
 ```
 
-## Help?
+## TO-DO
+
+* Add more default comparisons, such as between identifiers.
+* Test scalability.
+
+## Need help?
+
+Please contact [](miquelduranfrigola@gmail.com) for questions regarding the **Easy linkage** library.
 
 
 

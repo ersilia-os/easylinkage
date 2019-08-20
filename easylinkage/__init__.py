@@ -21,3 +21,5 @@ from recordlinkage import datasets
 from .index import *
 from .compare import *
 from .classifiers import *
+
+__ALL__ = ["postprocessing"]
