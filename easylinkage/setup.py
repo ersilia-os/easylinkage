@@ -22,26 +22,15 @@ setup(
     platforms="any",
 
     # Description
-    description="A record linkage toolkit for linking and deduplication",
-    long_description=read('README.rst'),
+    description="Easy record linkage for medical data",
+    long_description=read('README.md'),
 
     # Github
     url="https://github.com/miquelduranfrigola/easylinkage",
 
     python_requires=">=3.5",
     install_requires=[
-        "jellyfish>=0.5.4",
-        "numpy>=1.13.0",
-        "pandas>=0.18.0",
-        "scipy>=0.17.1",
-        "scikit-learn>=0.19.0",
-        "joblib"
+        "recordlinkage>=0.13.2"
     ],
-    packages=find_packages(
-        exclude=["benchmarks", "docs",
-                 "*.tests", "*.tests.*", "tests.*", "tests"]
-    ),
-    include_package_data=True,
-    package_data={'recordlinkage': ['datasets/*/*.csv']},
     license='BSD-3-Clause'
 )

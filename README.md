@@ -67,7 +67,7 @@ comp.location("location", "site")
 comparison_vectors = comp.compute(df_a, df_b)
 ```
 
-These instructions will use multiple (expanded) types of similarities between fields. If a faster comparison is desired, we can turn off the expansion (`expand = False`).
+By default, these instructions will use multiple (expanded) types of similarities between fields. If a faster comparison is desired, we can turn off the expansion (`expand = False`).
 
 ### Link
 
