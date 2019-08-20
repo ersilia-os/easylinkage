@@ -2,7 +2,7 @@
 
 import os
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 def read(fname):
     """Read a file."""
@@ -20,7 +20,10 @@ setup(
     description="Easy record linkage for medical data",
     long_description=read('README.md'),
 
-    packages = ["easylinkage"],
+    packages=find_packages(
+        exclude=["benchmarks", "docs",
+                 "*.tests", "*.tests.*", "tests.*", "tests"]
+    ),
 
     # Github
     url="https://github.com/miquelduranfrigola/easylinkage",

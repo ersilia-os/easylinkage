@@ -1,6 +1,7 @@
+__all__ = ["algorithms", "postprocessing"]
+
 import recordlinkage.config_init  # noqa
 
-from recordlinkage.api import Compare, Index
 from recordlinkage.index import FullIndex
 from recordlinkage.index import BlockIndex
 from recordlinkage.index import SortedNeighbourhoodIndex
@@ -18,6 +19,6 @@ from recordlinkage.deprecated import *
 from recordlinkage import preprocessing
 from recordlinkage import datasets
 
-from .index import *
-from .compare import *
-from .classifiers import *
+from .index import Index
+from .compare import Compare
+from .classifiers import EnsembleECMClassifier, ECMClassifier

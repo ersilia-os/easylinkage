@@ -1,29 +1,28 @@
 # -*- coding: utf-8 -*-
 
+import pandas as pd
+
 def merge(probabilities, x, x_link, multiindex = True):
-
-    
-
-	pass
-
-
-
-
-def linkage(dfc, dfq, dft, ensemble):
-    raws  = raw_match(dfc)
-    probas = ensemble_ecm_probabilities(dfc, ensemble)
-    dfl = pd.DataFrame(data = {"index.q": probas.index.labels[0],
-                               "index.t": probas.index.labels[1],
-                               "raw": raws.values,
-                               "proba": probas.values,
-                               "firstname.q": dfq.iloc[probas.index.labels[0]]["firstname"].values,
-                               "surname.q": dfq.iloc[probas.index.labels[0]]["surname"].values,
-                               "birthdate.q": dfq.iloc[probas.index.labels[0]]["birthdate"].values,
-                               "firstname.t": dft.iloc[probas.index.labels[1]]["firstname"].values,
-                               "surname.t": dft.iloc[probas.index.labels[1]]["surname"].values,
-                               "birthdate.t": dft.iloc[probas.index.labels[1]]["birthdate"].values})
-    dfl = dfl[["index.q", "index.t", "raw", "proba", "firstname.q", "surname.q", "birthdate.q", "firstname.t", "surname.t", "birthdate.t"]]
-    dfl = dfl[dfl.proba >= min_prob]
-    dfl = dfl.sort_values(by = ["index.q", "raw"], ascending = [True, False])
-    dfl = dfl.reset_index(drop = True)
-    return dfl
+    data = {}
+    columns = []
+    if not multiindex:
+        data["index.x"] = probabilities.index.labels[0]
+        data["index.y"] = probabilities.index.labels[1]
+        columns += ["index.x"]
+        columns += ["index.y"]
+    data["proba"] = probabilities.values
+    columns += ["proba"]
+    for c in x.columns:
+        data[c + ".x"] = x.iloc[probabilities.index.labels[0]][c].values
+        columns += [c + ".x"]
+    for c in x_link.columns:
+        data[c + ".y"] = x_link.iloc[probabilities.index.labels[1]][c].values
+        columns += [c + ".y"]
+    if multiindex:
+        df = pd.DataFrame(data = data, index = probabilities.index)
+    else:
+        df = pd.DataFrame(data = data)
+        df = df.sort_values(by = ["index.x", "proba"], ascending = [True, False])
+        df = df.reset_index(drop = True)
+    df = df[columns]
+    return df

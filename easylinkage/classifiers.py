@@ -1,7 +1,11 @@
-from recordlinkage.classifiers import *
-from .algorithms.nb_sklearn import ECM
+from recordlinkage.classifiers import FellegiSunter, SKLearnAdapter, Classifier
+from easylinkage.algorithms.nb_sklearn import ECM
 import pandas as pd
 import numpy as np
+import collections
+import random
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.impute import SimpleImputer
 
 class BaseECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
 
@@ -12,7 +16,7 @@ class BaseECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
                  atol=10e-5,
                  use_col_names=True,
                  *args, **kwargs):
-        super(ECMClassifier, self).__init__(
+        super(BaseECMClassifier, self).__init__(
             use_col_names=use_col_names
         )
 
@@ -26,7 +30,7 @@ class BaseECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
     def fit(self, X, *args, **kwargs):
         __doc__ = Classifier.__doc__  # noqa
 
-        if isinstance(X, pandas.DataFrame):
+        if isinstance(X, pd.DataFrame):
             self._column_labels = X.columns.tolist()
 
         Classifier.fit(self, X, *args, **kwargs)

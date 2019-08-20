@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from recordlinkage.algorithms.nb_sklearn import *
+import warnings
+
+import numpy as np
+
+from sklearn.base import BaseEstimator, ClassifierMixin
+from sklearn.utils.validation import check_array, check_X_y
+from sklearn.exceptions import NotFittedError
+from sklearn.preprocessing import LabelBinarizer, binarize
+
+try:  # SciPy >= 0.19
+    from scipy.special import logsumexp
+except ImportError:
+    from scipy.misc import logsumexp  # noqa
+from scipy.sparse import issparse
+
+from recordlinkage.types import is_string_like
+from recordlinkage.algorithms.nb_sklearn import safe_sparse_dot
 from recordlinkage.algorithms.nb_sklearn import ECM as BaseECM
 
 class ECM(BaseECM):
