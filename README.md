@@ -17,3 +17,11 @@ import easylinkage
 import pandas as pd
 
 ```
+
+Usually, comparing all datasets against all is computationally intractable. We can partition the pairwise data, for example, in `k = 5` blocks, using fuzzy similarities of first names and surnames.
+
+```python
+indexer = recordlinkage.Index()
+indexer.softblock(left_on = ['firstname', 'surname'], right_on = ['firstname', 'surname'], k = 5)
+pairs = indexer.index(df_a, df_b)
+```
