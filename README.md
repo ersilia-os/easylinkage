@@ -90,8 +90,6 @@ df_ab = merge(probabilities, df_a, df_b)
 
 ## Work in progress
 
-The **Easy linkage** library is currently being tested and we do recommend to use 
-
 * Add more built-in comparisons (e.g. identifiers).
 * Test scalability.
 * Smart sampling based on prior probabilities.
