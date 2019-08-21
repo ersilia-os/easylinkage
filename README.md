@@ -87,7 +87,7 @@ probabilities = ecm.prob(comparison_vectors)
 
 ### Merge
 
-Now that we have matching probabilities for each candidate pair, we can merge results in a data frame, only keeping matches with a probability of at least 50% (`min_proba = 0.5`).
+Now that we have matching probabilities for each candidate pair, we can merge results in a data frame and only keep matches with a probability of at least 50% (`min_proba = 0.5`).
 
 ```python
 from easylinkage.postprocessing import merge
