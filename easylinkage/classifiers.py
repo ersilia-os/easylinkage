@@ -47,7 +47,7 @@ class ECMClassifier(BaseECMClassifier):
     @staticmethod
     def _numerically_correct(df):
         correction = np.identity(df.shape[1])
-        n = df.index.levels[0][-1] + 1
+        n = len(set(df.index.levels[0]))
         mindex = []
         for i in range(n, n + df.shape[1]):
             mindex += [(n, i)]
