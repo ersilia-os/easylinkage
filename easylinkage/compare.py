@@ -32,7 +32,7 @@ class Compare(BaseCompare):
     def _expand_birthdate(df, col):
         df[col] = pd.to_datetime(df[col], errors = "coerce")
         df[col+"---string"] = df[col].dt.strftime('%Y-%m-%d')
-        df[col+"---year"] = df.birthdate.dt.year
+        df[col+"---year"] = df[col].dt.year
 
     @staticmethod
     def _expand_sex(df, col):

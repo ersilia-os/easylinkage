@@ -32,6 +32,13 @@ df_a = pd.read_csv(YOUR_FIRST_DATASET)
 df_b = pd.read_csv(YOUR_SECOND_DATASET)
 ```
 
+If you are just testing, you can load two exemplary datasets.
+
+```python
+from easylinkage.testdatasets import load
+df_a, df_b = load()
+```
+
 ### Preprocess
 
 Data [preprocessing](https://recordlinkage.readthedocs.io/en/latest/ref-preprocessing.html) is an important and time-consuming step. The better the processing, the more accurate the linkage will be. For instance, one should normalize (clean) text fields.
@@ -62,9 +69,8 @@ comp = easylinkage.Compare()
 comp.name("firstname", "givenname", expand = True)
 comp.name("surname", "familyname")
 comp.birthdate("birthdate", "dateofbirth")
-comp.sex("sex", "sex")
 comp.location("location", "site")
-comparison_vectors = comp.compute(df_a, df_b)
+comparison_vectors = comp.compute(pairs, df_a, df_b)
 ```
 
 By default, these instructions will use multiple (expanded) types of similarities between fields. If a faster comparison is desired, we can turn off the expansion (`expand = False`).

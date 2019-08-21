@@ -1,5 +1,5 @@
 from recordlinkage.classifiers import FellegiSunter, SKLearnAdapter, Classifier
-from easylinkage.algorithms.nb_sklearn import ECM
+from easylinkage.utils.nb_sklearn import ECM
 import pandas as pd
 import numpy as np
 import collections
