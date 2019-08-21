@@ -50,11 +50,11 @@ df_a["firstname"] = clean(df_a["firstname"])
 
 ### Index
 
-Comparing all records against all may be computationally intractable, and it is advisable to reduce the search space. We can partition the pairwise matrix in `k = 5` blocks using fuzzy similarities between names.
+Comparing all records against all may be computationally intractable, and it is advisable to reduce the search space. We can partition the pairwise matrix in `k = 100` blocks using fuzzy similarities between names.
 
 ```python
 indexer = easylinkage.Index()
-indexer.softblock(left_on = ['firstname', 'surname'], right_on = ['givenname', 'familyname'], k = 5)
+indexer.softblock(left_on = ['firstname', 'surname'], right_on = ['givenname', 'familyname'], k = 100)
 pairs = indexer.index(df_a, df_b)
 ```
 
@@ -87,11 +87,11 @@ probabilities = ecm.prob(comparison_vectors)
 
 ### Merge
 
-Now that we have matching probabilities for each candidate pair, we can merge results in a data frame.
+Now that we have matching probabilities for each candidate pair, we can merge results in a data frame, only keeping matches with a probability of at least 50% (`min_proba = 0.5`).
 
 ```python
 from easylinkage.postprocessing import merge
-df_ab = merge(probabilities, df_a, df_b)
+df_ab = merge(probabilities, df_a, df_b, min_proba = 0.5)
 ```
 
 ## Work in progress
