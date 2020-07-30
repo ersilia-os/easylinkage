@@ -44,7 +44,7 @@ df_a, df_b = load()
 Data [preprocessing](https://recordlinkage.readthedocs.io/en/latest/ref-preprocessing.html) is an important and time-consuming step. The better the processing, the more accurate the linkage will be. For instance, one should normalize (clean) text fields.
 
 ```python
-from easylinkage.preprocessing import clean
+from recordlinkage.preprocessing import clean
 df_a["firstname"] = clean(df_a["firstname"])
 ```
 
